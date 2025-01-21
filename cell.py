@@ -36,3 +36,6 @@ class Cell:
         for wall in self.walls:
             if wall:
                 self.__win.draw_line(wall, "black")
+
+    def draw_move(self, to_cell, undo=False):
+        self.__win.draw_line(Line(self.centre, to_cell.centre), "gray" if undo else "red")

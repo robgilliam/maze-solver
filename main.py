@@ -26,4 +26,9 @@ maze[1][1].add_bottom_exit()
 for cell in [c for r in maze for c in r]:
     cell.draw()
 
+maze[0][0].draw_move(maze[0][1])
+maze[0][1].draw_move(maze[0][0], undo=True)
+maze[0][0].draw_move(maze[1][0])
+maze[1][0].draw_move(maze[1][1])
+
 win.wait_for_close()
