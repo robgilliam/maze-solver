@@ -1,24 +1,23 @@
 from point import Point
 from line import Line
 
-cell_size = 20
-
 class Cell:
-    def __init__(self, x, y, win):
+    def __init__(self, x1, y1, x2, y2, win):
         self.__win = win
-        self.centre = Point(x * cell_size, y * cell_size)
 
-        self.top_left = self.centre.offset(-1 * cell_size / 2, -1 * cell_size / 2)
-        self.top_right = self.centre.offset(+1 * cell_size / 2, -1 * cell_size / 2)
-        self.bottom_left = self.centre.offset(-1 * cell_size / 2, +1 * cell_size / 2)
-        self.bottom_right = self.centre.offset(+1 * cell_size / 2, +1 * cell_size / 2)
+        top_left = Point(x1, y1)
+        top_right = Point(x2, y1)
+        bottom_left = Point(x1, y2)
+        bottom_right = Point(x2, y2)
 
         self.walls = [
-            Line(self.top_left, self.top_right),
-            Line(self.top_right, self.bottom_right),
-            Line(self.bottom_left, self.bottom_right),
-            Line(self.top_left, self.bottom_left)
+            Line(top_left, top_right),
+            Line(top_right, bottom_right),
+            Line(bottom_left, bottom_right),
+            Line(top_left, bottom_left)
         ]
+
+        self.centre = Point((x1 + x2) / 2, (y1 + y2) / 2)
 
     def add_top_exit(self):
         self.walls[0] = None

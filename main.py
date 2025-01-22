@@ -6,13 +6,13 @@ win = Window(800, 600)
 maze = [
     #First row
     [
-        Cell(1, 1, win),
-        Cell(2, 1, win)
+        Cell(10, 10, 30, 30, win),
+        Cell(30, 10, 50, 30, win)
     ],
     #Second row
     [
-        Cell(1, 2, win),
-        Cell(2, 2, win)
+        Cell(10, 30, 30, 50, win),
+        Cell(30, 30, 50, 50, win)
     ]
 ]
 maze[0][0].add_bottom_exit()
