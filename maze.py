@@ -1,4 +1,5 @@
 import time
+import random
 
 from cell import Cell
 
@@ -10,8 +11,12 @@ class Maze:
         num_cols,
         cell_size_x,
         cell_size_y,
-        win = None
+        win = None,
+        seed = None
     ):
+        if seed:
+            random.seed(seed)
+
         self._cells = []
         self._x1 = x1
         self._y1 = y1
@@ -20,14 +25,13 @@ class Maze:
         self._cell_size_x = cell_size_x
         self._cell_size_y = cell_size_y
         self._win = win
-
+        self._cells = [[None] * self._num_rows for _ in range(self._num_cols)]
         self._create_cells()
 
     def _create_cells(self):
-        self._cells = [[Cell(self._win)] * self._num_rows for _ in range(self._num_cols)]
-
         for i in range(self._num_cols):
             for j in range(self._num_rows):
+                self._cells[i][j] = Cell(self._win)
                 self._draw_cell(i, j)
 
     def _draw_cell(self, i, j):
@@ -62,3 +66,32 @@ class Maze:
     def _break_entrance_and_exit(self):
         self._break_cell_wall(0, 0, "top")
         self._break_cell_wall(self._num_cols - 1, self._num_rows - 1, "bottom")
+
+    def _break_walls_r(self, i, j):
+        self._cells[i][j].visited = True
+        while True:
+            cell_list = []
+            if i > 0:
+                if not self._cells[i-1][j].visited:
+                    cell_list.append(("left", i-1 , j, "right"))
+
+            if i < self._num_cols - 1:
+                if not self._cells[i+1][j].visited:
+                    cell_list.append(("right", i+1 , j, "left"))
+
+            if j > 0:
+                if not self._cells[i][j-1].visited:
+                    cell_list.append(("top", i , j-1, "bottom"))
+
+            if j < self._num_rows - 1:
+                if not self._cells[i][j+1].visited:
+                    cell_list.append(("bottom", i, j+1, "top"))
+
+            if len(cell_list):
+                dir,i1,j1,rev = cell_list[random.randint(0, len(cell_list) - 1)]
+                self._break_cell_wall(i, j, dir)
+                self._break_cell_wall(i1, j1, rev)
+                self._break_walls_r(i1, j1)
+            else:
+                self._draw_cell(i, j)
+                return

@@ -3,29 +3,8 @@ from maze import Maze
 
 win = Window(800, 600)
 # Add some cells
-maze = Maze(10, 10, 3, 2, 40, 40, win)
+maze = Maze(10, 10, 10, 12, 40, 40, win)
 maze._break_entrance_and_exit()
-# maze[0][0].has_right_wall = False
-# maze[1][0].has_left_wall = False
-
-# maze[0][0].has_bottom_wall = False
-# maze[0][1].has_top_wall = False
-
-# maze[0][1].has_right_wall = False
-# maze[1][1].has_left_wall = False
-
-# maze[1][1].has_bottom_wall = False
-# maze[1][2].has_top_wall = False
-
-# maze[1][2].has_left_wall = False
-# maze[0][2].has_right_wall = False
-
-# maze[0][2].has_bottom_wall = False
-
-# maze[0][0].draw_move(maze[1][0])
-# maze[1][0].draw_move(maze[0][0], undo=True)
-# maze[0][0].draw_move(maze[0][1])
-# maze[0][1].draw_move(maze[1][1])
-# maze[1][1].draw_move(maze[1][2])
+maze._break_walls_r(0,0)
 
 win.wait_for_close()

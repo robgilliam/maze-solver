@@ -9,7 +9,7 @@ class Window:
         self.__root.wm_title("Rob's Window")
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
 
-        self.canvas = Canvas()
+        self.canvas = Canvas(height=height, width=width)
         self.canvas.pack()
 
         self.is_running = False
