@@ -1,14 +1,14 @@
-from point import Point
 from line import Line
+from point import Point
 
 class Cell:
     def __init__(self, win = None):
         self._win = win
 
-        self.has_left_wall = True
-        self.has_right_wall = True
-        self.has_top_wall = True
-        self.has_bottom_wall = True
+        self._has_left_wall = True
+        self._has_right_wall = True
+        self._has_top_wall = True
+        self._has_bottom_wall = True
 
         self._x1 = None
         self._y1 = None
@@ -32,19 +32,19 @@ class Cell:
             bottom_right = Point(x2, y2)
 
             line = Line(top_left, bottom_left)
-            colour = "black" if self.has_left_wall else "white"
+            colour = "black" if self._has_left_wall else "white"
             self._win.draw_line(line, colour)
 
             line = Line(top_right, bottom_right)
-            colour = "black" if self.has_right_wall else "white"
+            colour = "black" if self._has_right_wall else "white"
             self._win.draw_line(line, colour)
 
             line = Line(top_left, top_right)
-            colour = "black" if self.has_top_wall else "white"
+            colour = "black" if self._has_top_wall else "white"
             self._win.draw_line(line, colour)
 
             line = Line(bottom_left, bottom_right)
-            colour = "black" if self.has_bottom_wall else "white"
+            colour = "black" if self._has_bottom_wall else "white"
             self._win.draw_line(line, colour)
 
     def draw_move(self, to_cell, undo=False):

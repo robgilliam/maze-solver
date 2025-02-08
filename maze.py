@@ -1,5 +1,5 @@
-import time
 import random
+import time
 
 from cell import Cell
 
@@ -14,10 +14,6 @@ class Maze:
         win = None,
         seed = None
     ):
-        if seed:
-            random.seed(seed)
-
-        self._cells = []
         self._x1 = x1
         self._y1 = y1
         self._num_rows = num_rows
@@ -25,8 +21,16 @@ class Maze:
         self._cell_size_x = cell_size_x
         self._cell_size_y = cell_size_y
         self._win = win
+
+        if seed:
+            random.seed(seed)
+
         self._cells = [[None] * self._num_rows for _ in range(self._num_cols)]
+
         self._create_cells()
+        self._break_entrance_and_exit()
+        self._break_walls_r(0,0)
+        self._reset_cells_visited()
 
     def _create_cells(self):
         for i in range(self._num_cols):
@@ -50,16 +54,16 @@ class Maze:
 
     def _break_cell_wall(self, i, j, wall):
         if wall == "left":
-            self._cells[i][j].has_left_wall = False
+            self._cells[i][j]._has_left_wall = False
 
         if wall == "right":
-            self._cells[i][j].has_right_wall = False
+            self._cells[i][j]._has_right_wall = False
 
         if wall == "top":
-            self._cells[i][j].has_top_wall = False
+            self._cells[i][j]._has_top_wall = False
 
         if wall == "bottom":
-            self._cells[i][j].has_bottom_wall = False
+            self._cells[i][j]._has_bottom_wall = False
 
         self._draw_cell(i, j)
 

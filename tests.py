@@ -22,16 +22,9 @@ class Tests(unittest.TestCase):
 				# Arrange
                 m = Maze(0, 0, num_rows, num_cols, 10, 10)
 
-                # Assume
-                self.assertTrue(m._cells[0][0].has_top_wall)
-                self.assertTrue(m._cells[num_cols - 1][num_rows - 1].has_bottom_wall)
-
-				# Act
-                m._break_entrance_and_exit()
-
 				# Assert
-                self.assertFalse(m._cells[0][0].has_top_wall)
-                self.assertFalse(m._cells[num_cols - 1][num_rows - 1].has_bottom_wall)
+                self.assertFalse(m._cells[0][0]._has_top_wall)
+                self.assertFalse(m._cells[num_cols - 1][num_rows - 1]._has_bottom_wall)
 
     def test_reset_cells_visited(self):
         # Arrange
