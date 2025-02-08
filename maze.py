@@ -95,3 +95,8 @@ class Maze:
             else:
                 self._draw_cell(i, j)
                 return
+
+    def _reset_cells_visited(self):
+        for col in self._cells:
+            for cell in col:
+                cell.visited = False
